@@ -39,21 +39,50 @@ let swiperProducts = new Swiper(".products__container", {
 
 //   SCROLL SECTIONS ACTIVE LINK
 
-const sections = document.querySelectorAll('section[id]')
+// const sections = document.querySelectorAll('section[id]')
+// const navLinks = document.querySelectorAll('.nav__menu a.nav__link');
+
+// function scrollActive() {
+//     const scrollY = window.scrollY;
+
+//     sections.forEach(current => {
+//         const sectionHeight = current.offsetHeight, sectionTop = current.offsetTop - 58, sectionId = current.getAttribute('id'), sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']');
+
+//         if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+//             sectionsClass.classList.add('active-link');
+//         } else {
+//             sectionsClass.classList.remove('active-link');
+//         }
+//     });
+// }
+const sections = document.querySelectorAll('section[id]');
+const navLinks = document.querySelectorAll('.nav__menu a.nav__link');
 
 function scrollActive() {
     const scrollY = window.scrollY;
 
     sections.forEach(current => {
-        const sectionHeight = current.offsetHeight, sectionTop = current.offsetTop - 58, sectionId = current.getAttribute('id'), sectionsClass = document.querySelector('.nav__menu a[href*=' + sectionId + ']');
+        const sectionHeight = current.offsetHeight;
+        const sectionTop = current.offsetTop - 58;
+        const sectionId = current.getAttribute('id');
 
-        if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
-            sectionsClass.classList.add('active-link');
-        } else {
-            sectionsClass.classList.remove('active-link');
-        }
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === '#' + sectionId) {
+                if (scrollY > sectionTop && scrollY <= sectionTop + sectionHeight) {
+                    link.classList.add('active-link');
+                } else {
+                    link.classList.remove('active-link');
+                }
+            }
+        });
     });
 }
+
+// Llamada inicial a scrollActive para configurar el estado de los enlaces al cargar la página
+scrollActive();
+
+// Llamada a scrollActive cuando se produce el evento de desplazamiento
+window.addEventListener('scroll', scrollActive);
 
 // SHOW SCROLL UP
 
